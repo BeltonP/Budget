@@ -26,7 +26,7 @@ public class ExpenseManager
 		return instance;
 	}
 
-	public float geTotalAmountOutstanding()
+	public float getTotalAmountOutstanding()
 	{
 		List<Expense> outstandingExpenses = entityExpense.getAllUnpaid();
 		float sum = 0f;

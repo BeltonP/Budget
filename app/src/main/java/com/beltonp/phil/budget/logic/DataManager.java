@@ -3,7 +3,6 @@ package com.beltonp.phil.budget.logic;
 import android.content.Context;
 
 import com.beltonp.phil.budget.database.DataModel;
-import com.beltonp.phil.budget.database.entities.EntityExpense;
 
 public class DataManager
 {
@@ -13,7 +12,9 @@ public class DataManager
 	public BankManager bankManager;
 	public WalletManager walletManager;
 	public CreditCardManager creditCardManager;
-	public EntityExpense expenses;
+	public ExpenseManager expenseManager;
+	public IncomeManager incomeManager;
+	public PurchasePlanManager purchasePlanManager;
 
 	private DataManager(Context context)
 	{
@@ -21,7 +22,9 @@ public class DataManager
 		bankManager = BankManager.getInstance(model);
 		walletManager = WalletManager.getInstance(model);
 		creditCardManager = CreditCardManager.getInstance(model);
-		expenses = model.expenses;
+		expenseManager = ExpenseManager.getInstance(model);
+		incomeManager = IncomeManager.getInstance(model);
+		purchasePlanManager = PurchasePlanManager.getInstance(model);
 	}
 
 	public static DataManager getInstance(Context context)
