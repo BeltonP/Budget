@@ -87,7 +87,7 @@ public class EntityExpense
 		return null;
 	}
 
-	public Expense getByName(String name)
+	public List<Expense> getByName(String name)
 	{
 		try
 		{
@@ -96,7 +96,7 @@ public class EntityExpense
 			qb.where().eq("name", name);
 
 			PreparedQuery<Expense> pq = qb.prepare();
-			return expenseDao.queryForFirst(pq);
+			return expenseDao.query(pq);
 		}
 		catch (SQLException e)
 		{
@@ -123,6 +123,16 @@ public class EntityExpense
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public List<Expense> getAllPaid()
+	{
+		return getByPaid(true);
+	}
+
+	public List<Expense> getAllUnpaid()
+	{
+		return getByPaid(false);
 	}
 
 	public List<Expense> getAll()

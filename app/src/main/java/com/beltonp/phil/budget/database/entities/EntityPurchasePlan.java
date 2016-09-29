@@ -87,7 +87,7 @@ public class EntityPurchasePlan
 		return null;
 	}
 
-	public PurchasePlan getByName(String name)
+	public List<PurchasePlan> getByName(String name)
 	{
 		try
 		{
@@ -96,7 +96,45 @@ public class EntityPurchasePlan
 			qb.where().eq("name", name);
 
 			PreparedQuery<PurchasePlan> pq = qb.prepare();
-			return purchasePlanDao.queryForFirst(pq);
+			return purchasePlanDao.query(pq);
+		}
+		catch (SQLException e)
+		{
+			// TODO: Exception Handling
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<PurchasePlan> getAllPaid()
+	{
+		try
+		{
+			QueryBuilder<PurchasePlan, Integer> qb = purchasePlanDao.queryBuilder();
+
+			qb.where().eq("remainingCost", 0);
+
+			PreparedQuery<PurchasePlan> pq = qb.prepare();
+			return purchasePlanDao.query(pq);
+		}
+		catch (SQLException e)
+		{
+			// TODO: Exception Handling
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<PurchasePlan> getAllUnpaid()
+	{
+		try
+		{
+			QueryBuilder<PurchasePlan, Integer> qb = purchasePlanDao.queryBuilder();
+
+			qb.where().gt("remainingCost", 0);
+
+			PreparedQuery<PurchasePlan> pq = qb.prepare();
+			return purchasePlanDao.query(pq);
 		}
 		catch (SQLException e)
 		{

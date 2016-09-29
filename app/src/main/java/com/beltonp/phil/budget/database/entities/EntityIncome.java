@@ -87,7 +87,7 @@ public class EntityIncome
 		return null;
 	}
 
-	public Income getByName(String name)
+	public List<Income> getByName(String name)
 	{
 		try
 		{
@@ -96,7 +96,7 @@ public class EntityIncome
 			qb.where().eq("name", name);
 
 			PreparedQuery<Income> pq = qb.prepare();
-			return incomeDao.queryForFirst(pq);
+			return incomeDao.query(pq);
 		}
 		catch (SQLException e)
 		{
@@ -123,6 +123,16 @@ public class EntityIncome
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public List<Income> getAllPaid()
+	{
+		return getByPaid(true);
+	}
+
+	public List<Income> getAllUnpaid()
+	{
+		return getByPaid(false);
 	}
 
 	public List<Income> getByPayer(String payer)
