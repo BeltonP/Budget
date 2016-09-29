@@ -3,22 +3,24 @@ package com.beltonp.phil.budget.logic;
 import com.beltonp.phil.budget.database.DataModel;
 import com.beltonp.phil.budget.model.KeyFigure;
 
-public class Bank
+public class WalletManager
 {
-	private static Bank instance = null;
+	private static WalletManager instance = null;
 
 	private KeyFigure keyFigure;
+	private DataModel model;
 
-	private Bank(KeyFigure keyFigure)
+	private WalletManager(KeyFigure keyFigure, DataModel model)
 	{
 		this.keyFigure = keyFigure;
+		this.model = model;
 	}
 
-	public static Bank getInstance(DataModel model)
+	public static WalletManager getInstance(DataModel model)
 	{
 		if (instance == null)
 		{
-			instance = new Bank(model.keyFigures.getByName("Bank"));
+			instance = new WalletManager(model.keyFigures.getByName(WalletManager.class.getName()), model);
 		}
 		return instance;
 	}
@@ -38,7 +40,7 @@ public class Bank
 		keyFigure.setValue(balance);
 	}
 
-	public void save(DataModel model)
+	public void save()
 	{
 		keyFigure.save(model);
 	}

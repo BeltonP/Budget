@@ -3,22 +3,24 @@ package com.beltonp.phil.budget.logic;
 import com.beltonp.phil.budget.database.DataModel;
 import com.beltonp.phil.budget.model.KeyFigure;
 
-public class CreditCard
+public class BankManager
 {
-	private static CreditCard instance = null;
+	private static BankManager instance = null;
 
 	private KeyFigure keyFigure;
+	private DataModel model;
 
-	private CreditCard(KeyFigure keyFigure)
+	private BankManager(KeyFigure keyFigure, DataModel model)
 	{
 		this.keyFigure = keyFigure;
+		this.model = model;
 	}
 
-	public static CreditCard getInstance(DataModel model)
+	public static BankManager getInstance(DataModel model)
 	{
 		if (instance == null)
 		{
-			instance = new CreditCard(model.keyFigures.getByName("Credit Card"));
+			instance = new BankManager(model.keyFigures.getByName(BankManager.class.getName()), model);
 		}
 		return instance;
 	}
@@ -38,7 +40,7 @@ public class CreditCard
 		keyFigure.setValue(balance);
 	}
 
-	public void save(DataModel model)
+	public void save()
 	{
 		keyFigure.save(model);
 	}
